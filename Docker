@@ -16,8 +16,23 @@ docker info
 
 ##to create a container
 docker run <image>
-##to get into a interractive with image 
+##container naming
+docker run --name container_name -it ubuntu //bin/bash 
+##starting a stopped container
+docker start container_name
+##attaching a docker
+docker attach container_name or container ID  (#we have to start container before attaching )
+##creating demonised(detach or background running) containers
+docker run --name container_name -d ubuntu //bin/sh -c "while true; do echo hello world; sleep 1; done"
+##Fetch logs of a container(to watch current running stats of a container)
+docker logs -f container_name
+
+
+##to get into a interractive with image  
 docker run -it ubuntu 
+
+##to run in detach mode with out clossing(backgroung running)
+docker run -d ubuntu
 
 ##to create mysql image
 docker run --name mysql-basic -e MYSQL_USER=user1 -e MYSQL_PASSWORD=123 -e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=123 -d centos/mysql-57-centos7
@@ -30,4 +45,13 @@ docker exec -it mysql-basic /bin/bash
 ##to exec container without typing the container name or container ID we can reference -l to get information from the last executed container 
 ex:
 
-##
+##volume mount
+
+
+
+
+#Port forwarding
+
+
+
+
