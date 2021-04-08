@@ -8,6 +8,7 @@ docker container ls -a #it will show the list of running, stopped, and exit cont
 
 ##to start docker
 systemctl start docker
+
 ##to see the status of docker
 systemctl status docker
 ps -ef|grep docker
@@ -16,6 +17,11 @@ docker info
 
 ##to create a container
 docker run <image>
+##to start container
+docker start container_name
+##to stop container
+docker stop container
+
 ##container naming
 docker run --name container_name -it ubuntu //bin/bash 
 ##starting a stopped container
@@ -26,6 +32,9 @@ docker attach container_name or container ID  (#we have to start container befor
 docker run --name container_name -d ubuntu //bin/sh -c "while true; do echo hello world; sleep 1; done"
 ##Fetch logs of a container(to watch current running stats of a container)
 docker logs -f container_name
+
+##to delete container
+docker rm container_name
 
 
 ##to get into a interractive with image  
@@ -44,6 +53,26 @@ docker exec -it mysql-basic /bin/bash
 
 ##to exec container without typing the container name or container ID we can reference -l to get information from the last executed container 
 ex:
+
+##to see all the processers running inside the container 
+docker top container_name
+
+##to inspect a container(to get all the information of the container)
+docker inspect container_name
+#to get only perticular details we can use grep
+docker inspect container_name | grep -i ip (#we can get ip addres of the container)
+*#to get perticular key value pairs details we can use (in flower brackets we can give any key details for information so that we get value)
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' container_name 
+docker inspect --format '{{ .State.Running }}' container_name
+
+#To run a command in a running container without attaching it we can use exec command
+docker exec container_name
+docker exec container_name hostname
+docker exec -d container_name ls
+
+
+
+
 
 ##volume mount
 
