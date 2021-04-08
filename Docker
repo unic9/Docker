@@ -1,0 +1,33 @@
+##Commands
+
+docker --help
+docker container COMMAND #it will show the list of commands for the container
+
+docker container ls #it will show the list of running containers
+docker container ls -a #it will show the list of running, stopped, and exit containers
+
+##to start docker
+systemctl start docker
+##to see the status of docker
+systemctl status docker
+ps -ef|grep docker
+
+docker info
+
+##to create a container
+docker run <image>
+##to get into a interractive with image 
+docker run -it ubuntu 
+
+##to create mysql image
+docker run --name mysql-basic -e MYSQL_USER=user1 -e MYSQL_PASSWORD=123 -e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=123 -d centos/mysql-57-centos7
+
+##to execute that image 
+docker exec -it mysql-basic /bin/bash
+
+##entry point
+
+##to exec container without typing the container name or container ID we can reference -l to get information from the last executed container 
+ex:
+
+##
