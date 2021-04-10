@@ -6,7 +6,12 @@ docker container COMMAND #it will show the list of commands for the container
 docker container ls #it will show the list of running containers
 docker container ls -a #it will show the list of running, stopped, and exit containers
 
+#show current available images
 docker images #will give the image repositories information in the machine
+#Search for images 
+docker search ubuntu
+#Download images
+docker pull ubuntu 
 
 ##to start docker
 systemctl start docker
@@ -82,6 +87,16 @@ docker events --since '1h'
 docker events --filter event=attach --filter event=die
 
 
+##Renaming a container
+docker rename test1 test2 (#we cant change container ID, we can only rename container name)
+
+
+##Exposing our container with Port redirects(forwarding)
+All ports are private by default
+when u 'docker run -p <port>,.. that port becomes public
+when u 'docker run -p ,..with out posrt number, all ports declared with EXPOSE become public
+#{https://www.whitesourcesoftware.com/free-developer-tools/blog/docker-expose-port/} reference
+
 
 ##volume mount(Data volume)
 A valoume is a specifically designed directory with one or more containers that Bypasses
@@ -103,12 +118,7 @@ docker run --name test2 -it --volumes-from test1 --volumes-from test0 ubuntu /bi
 docker run --name test1 -it -v /home/user/Docker:/data ubuntu
 
 
-
-##Exposing our container with Port redirects(forwarding)
-All ports are private by default
-when u 'docker run -p <port>,.. that port becomes public
-when u 'docker run -p ,..with out posrt number, all ports declared with EXPOSE become public
-#{https://www.whitesourcesoftware.com/free-developer-tools/blog/docker-expose-port/} reference
+##
 
 
 
