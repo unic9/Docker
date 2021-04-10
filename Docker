@@ -118,7 +118,32 @@ docker run --name test2 -it --volumes-from test1 --volumes-from test0 ubuntu /bi
 docker run --name test1 -it -v /home/user/Docker:/data ubuntu
 
 
-##
+##Building Images Interactively(from container)
+For example
+-create a new container and make some changes
+docker run --name kiran_container -it ubuntu
+yum install vim
+exit
+
+-Inspect the changes
+docker diff kiran_container
+
+-commit and run your image
+docker commit kiran_container
+docker commit kiran_container myfirstimage
+docker run -it <containerID>
+
+-Tagging images
+docker tag <newimageID> myfirstimage (#u cant change image ID, only container name can be changed)
+
+
+
+
+
+
+
+
+
 
 
 
