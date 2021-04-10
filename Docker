@@ -6,6 +6,8 @@ docker container COMMAND #it will show the list of commands for the container
 docker container ls #it will show the list of running containers
 docker container ls -a #it will show the list of running, stopped, and exit containers
 
+docker images #will give the image repositories information in the machine
+
 ##to start docker
 systemctl start docker
 
@@ -65,21 +67,51 @@ docker inspect container_name | grep -i ip (#we can get ip addres of the contain
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' container_name 
 docker inspect --format '{{ .State.Running }}' container_name
 
-#To run a command in a running container without attaching it we can use exec command
+##To run a command in a running container without attaching it we can use exec command
 docker exec container_name
 docker exec container_name hostname
 docker exec -d container_name ls
 
+##Display a live usage of containers : resource usage statistics
+docker stats container_name apt-get update or apt-get install -y apache2
+
+##To get real time events from the server(live updates)
+docker events
+docker events --filter [container|image|event|label|type|volume|network|daemon]
+docker events --since '1h'
+docker events --filter event=attach --filter event=die
 
 
 
+##volume mount(Data volume)
+A valoume is a specifically designed directory with one or more containers that Bypasses
+the Union file System
+-volumes can be shared and reused between containers
+-A container does't have to be running to share its volumes
+-changes to a volume are made directly
+-volumes persist(to exist or to be prolonged) until no containers use them
+-changes to the volume will not be included when u update an image.
 
-##volume mount
+#volumes declared from cmd-line
+docker run --name test1 -it -v /usr/folder_name ubuntu /bin/bash
+
+#Sharing Volumes across containers [Data containers]
+-This is done using the --volumes-from flag for docker run
+docker run --name test2 -it --volumes-from test1 ubuntu /bin/bash
+docker run --name test2 -it --volumes-from test1 --volumes-from test0 ubuntu /bin/bash
+-Sharing a directory between the host and container
+docker run --name test1 -it -v /home/user/Docker:/data ubuntu
 
 
 
+##Exposing our container with Port redirects(forwarding)
+All ports are private by default
+when u 'docker run -p <port>,.. that port becomes public
+when u 'docker run -p ,..with out posrt number, all ports declared with EXPOSE become public
+#{https://www.whitesourcesoftware.com/free-developer-tools/blog/docker-expose-port/} reference
 
-#Port forwarding
+
+
 
 
 
