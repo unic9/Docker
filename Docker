@@ -185,8 +185,38 @@ docker run -it -u kumar kiran/dockerfiles
 % VOLUME ["/data"]
 
 
+-COPY :
+Adds files and directorries from our build environment into our image 
+COPY DUMMYFILE /data/DUMMYFILE
+            it will add the DUMMYFILE file from the build (host machine) directory to /data in the image
+            
+-ADD :
+similar to copy whereass it can extract archives
+ADD latest.tar.gz /var/www/wordpress
 
+-MAINTAINER 
+Tells you who wrote the Dockerfile
+MAINTAINER kiran kumar "robin@gmail.com"
 
+-EXPOSE :
+Tells Docker what ports are to be published in the image 
+EXPOSE 8080
+
+##Sample Dockerfile to setup apache2
+FROM ubuntu:12.04
+MAINAINER kiran
+RUN apt-get update && apt-get install -y apache2 && apt-get clean && rm -rf /var/lib/apt/lists/*
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+EXPOSE 80
+CMD ["/usr/sbin/apache2","-D", "FOREGROUND:]
+
+to build image
+docker build -t apacheimage -f ./Dockerfileapache .   (#If we have other name rather than Dockerfile we can build image in this image)
+
+to run image
+docker run -d -p 80:80 -v /var/www/html:/var/www/html apacheimage
 
 
 
