@@ -137,6 +137,55 @@ docker run -it <containerID>
 docker tag <newimageID> myfirstimage (#u cant change image ID, only container name can be changed)
 
 
+##BUILD DOCKER IMAGES   (With Docker file)
+
+-Create a Test directry and Dockerfile
+mkdir test
+cd test
+vim Dockerfile        (#it opens file in vim editor)
+    FROM ubuntu
+    RUN apt-get update
+    RUN apt-get -y install vim
+    
+-Build the image        (#to create a new container with new changes we use build option)
+docker build -t myfirstimage
+
+-Runing the built image       (#creating container from new image we created)
+docker run -it myfirstimage
+
+-List all the layers composing an image
+docker history myfirstimage
+
+##Docker File Instructions
+-RUN : Run the command when the container is being build 
+-CMD : Specifies the command to run when a container is launched, if values are specified during launch it will override the Dockerfile value 
+       %CMD ["echo", "Hi"]
+
+docker build -rm -t="kiran/dockerfiles" .
+docker run -it kiran/dockerfiles
+
+-ENTRYPOINT : same as RUN, arguments we specify on the docker run command line will be passed as arguments to the command specified in the ENTRYPOINT
+              %ENTRYPOINT ["echo"'"hi"]
+              
+-WORKDIR : Provieds a way to set the working directry of the container and the ENTRYPOINT and/or CMD to be excecuted when a container is launched from a image
+           % WORKDIR /usr/bin
+           
+-You can override the working directry at run time with the -W falg
+docker run -it -W /var kiran/dockerfiles
+
+-ENV : set Environment variables during the image build process 
+       % ENV ORACLE_HOME/var
+-USER : specifies a user that the image should run as
+        % USER kumar
+        
+-You can override this at runtime by specifiying thr -u flag with 
+docker run -it -u kumar kiran/dockerfiles
+
+-VOLUMES (data volumes)
+% VOLUME ["/data"]
+
+
+
 
 
 
